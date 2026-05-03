@@ -44,7 +44,6 @@
       { label: "Half marathon",     message: "I want to improve my half marathon time" },
       { label: "Injury prevention", message: "I want advice on injury prevention" },
       { label: "View programs",     message: "What programs does RD Run Coach offer?" },
-      { lable: "Learn about Run Squad", message: "What is run squad?"}
     ],
 
     /* AI coaching persona */
@@ -54,8 +53,7 @@ Your role:
 - Help visitors understand what programs and coaching RD Run Coach offers.
 - Give warm, encouraging, practical running advice tailored to runners 45+.
 - Address common concerns: injury prevention, returning to running, pacing for older runners, balancing training with life.
-- Encourage visitors to get in touch with Dale for personalised coaching.
-- Encourage visitors to come to run squad - the first week is free.
+- Encourage visitors to explore programs on the site or get in touch with Dale for personalised coaching.
 
 Tone: warm, experienced, and direct — like a knowledgeable friend who runs. Not clinical. Not corporate.
 Keep every response to 2–4 sentences. Be specific and practical.`,
@@ -355,13 +353,26 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
   `;
 
   /* ─── RUNNER SVG (shared) ────────────────────────────────── */
-  function runnerSVG(w, h, strokeW) {
-    return `<svg width="${w}" height="${h}" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="14" cy="3.5" r="2" fill="${CONFIG.blue}"/>
-      <path d="M11 8.5 L13 5.5 L15.5 7.5 L17.5 4.5" stroke="${CONFIG.blue}" stroke-width="${strokeW}" fill="none" stroke-linecap="round"/>
-      <path d="M8 13 L11 8.5 L15.5 7.5 L14 11.5 L16.5 15.5" stroke="${CONFIG.blue}" stroke-width="${strokeW}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M8 13 L6 17" stroke="${CONFIG.blue}" stroke-width="${strokeW}" stroke-linecap="round"/>
-      <path d="M14 11.5 L12.5 15 L10.5 17.5" stroke="${CONFIG.blue}" stroke-width="${strokeW}" stroke-linecap="round"/>
+  function runnerSVG(w, h, _strokeW) {
+    /* Exact paths extracted from the official RD Run Coach SVG logo */
+    return `<svg width="${w}" height="${h}" viewBox="75 75 500 440" xmlns="http://www.w3.org/2000/svg">
+      <g transform="scale(8.115671641791046) translate(10, 10)">
+        <g transform="matrix(1.2942612604336645,0,0,1.2942612604336645,-1.0031572075069692,-4.63647493766604)" fill="${CONFIG.blue}">
+          <path d="M14.1,8.5c-0.6,2-1.2,3.9-3.4,4.5c-0.9,0.3-2.1,0.2-3.1,0c-1.4-0.2-1.9-2.5-2-3.6C5.4,8.6,5.6,7.7,5.9,6.8c0.5-1.6,1.8-1.8,3.2-2c2.5-0.3,4.5,1,5,3.5c0.1,0.8,1.4,0.5,1.2-0.3c-0.6-3.1-3.2-4.6-6.2-4.4C5.7,3.8,4.2,6.1,4.3,9.4c0.1,1.4,0.6,2.7,1.4,3.8c0.8,1.1,2.2,1.2,3.5,1.2c3.6,0.1,5.2-2.4,6.1-5.6C15.5,8.1,14.3,7.8,14.1,8.5L14.1,8.5z"/>
+          <path d="M34.2,14.8C32.8,9.2,30,4.3,23.6,5.9c-3.2,0.8-6,3.9-7.9,6.4c-3.2,4.1-2.8,14.7-11,8.7C4,20.6,3.4,21.7,4,22.1c3.1,2.2,7.3,3,9.6-0.7c2.3-3.8,2-7.6,5.4-11.1c2-2,4.3-3.5,7.2-3.7c4.2-0.3,6,5.5,6.7,8.4C33.2,15.9,34.4,15.6,34.2,14.8L34.2,14.8z"/>
+          <path d="M4,20.8c-4.7,1.5-4,6.5,0.4,7.9c2.3,0.7,6.1,1.6,8.3,0.4c2.6-1.4,4.6-3.8,5.7-6.5c0.3-0.7-0.9-1.1-1.2-0.3c-1.4,3.4-4.1,6.1-8,6c-1.2,0-2.4-0.2-3.6-0.5C3,27.2-0.4,23.5,4.3,22C5.1,21.8,4.8,20.6,4,20.8L4,20.8z"/>
+          <path d="M17.4,22.6c0.9,1.2,1.9,2.4,2.8,3.6c0.5,0.6,1.6,0,1.1-0.6c-0.9-1.2-1.9-2.4-2.8-3.6C18,21.3,16.9,22,17.4,22.6L17.4,22.6z"/>
+          <path d="M20.7,25.6c-4.2,1.3-8,5.6-6.2,10.1c2,4.9,9.3,7.1,13.8,8.5c0.8,0.3,1.1-1,0.3-1.2c-3-1-5.9-2.1-8.6-3.7c-2.3-1.4-5.1-3.9-4.7-7c0.4-2.8,3.1-4.8,5.7-5.6C21.8,26.5,21.5,25.3,20.7,25.6L20.7,25.6z"/>
+          <path d="M29.1,44.1c1.9-1,2.7-3.4,1.1-5.1c-1.1-1.1-2.3-1.6-3.8-2.1c-1.5-0.4-6.8-1.1-3.8-4.6c0.9-1.1,2.4-1.8,3.8-2c0.8-0.1,0.5-1.3-0.3-1.2c-2.6,0.5-5.6,2.5-5.5,5.4c0,1.2,1.2,2.1,2.1,2.6c0.8,0.5,1.7,0.6,2.6,0.8c0.6,0.1,1.2,0.3,1.7,0.4c2.1,0.5,2.6,2,1.5,4.7C27.7,43.4,28.4,44.5,29.1,44.1L29.1,44.1z"/>
+          <path d="M25.7,30.2c1.5,3.2,2.7,6,5.6,8.3c3.5,2.6,7.2,4.4,11.5,5.5c0.8,0.2,1.1-1,0.3-1.2c-3.4-0.8-6.5-2.2-9.5-4.1c-3.6-2.3-5.1-5.3-6.9-9.1C26.4,28.9,25.3,29.5,25.7,30.2L25.7,30.2z"/>
+          <path d="M42.8,43.9c4.7,1.9,5.7-3.8,2.1-6c-1-0.6-1.7-0.8-2.8-1c-5-0.7-7.9-3.4-9.5-8c-0.7-2.2-1.1-4.3-2.2-6.4c-1.2-2.3-4.1-3.5-5.5-5.7c-0.5-0.7-1.5,0-1.1,0.6c1.3,1.9,3.1,3.2,4.8,4.8c2.7,2.5,2.8,8,4.6,11.2c1,1.8,3,3,4.9,3.6c1.4,0.5,2.8,1,4.3,1.2c3.4,0.5-0.2,4.1,0.7,4.4C42.4,42.4,42,43.6,42.8,43.9L42.8,43.9z"/>
+          <path d="M24.7,16.9C24,15.9,23.3,15,22.7,14c-0.8-1.3,3.6-3.7,4.8-1.5c1.1,2,0.7,4.5,2.5,6c0.7,0.6,2.9,1,3.7,0.4c1.3-0.9,1-2.2,0.7-3.6c-0.2-0.8-1.4-0.5-1.2,0.3c0.4,1.9-1.6,3.3-3,1.2c-0.6-0.8-0.6-2.3-0.9-3.3c-0.3-1.2-0.8-2.3-1.9-3c-2.1-1.4-5.1,1.2-6.1,2.7c-0.1,0.2-0.1,0.4,0,0.6c0.7,1.3,1.5,2.5,2.4,3.6C24.1,18.2,25.1,17.5,24.7,16.9L24.7,16.9z"/>
+          <path d="M32.9,31.2c4.6,0,9.3,0.1,13.9,0.1c0.8,0,0.8-1.2,0-1.3c-4.6,0-9.3-0.1-13.9-0.1C32,30,32,31.2,32.9,31.2L32.9,31.2z"/>
+          <path d="M30.2,24.2c5.2,0,10.3,0,15.5,0c0.8,0,0.8-1.3,0-1.3c-5.2,0-10.3,0-15.5,0C29.4,22.9,29.4,24.2,30.2,24.2L30.2,24.2z"/>
+          <path d="M34,16.7c3.2,0,6.4,0,9.7,0c0.8,0,0.8-1.3,0-1.3c-3.2,0-6.4,0-9.7,0C33.2,15.4,33.2,16.7,34,16.7L34,16.7z"/>
+          <path d="M31,9.3c3.1,0,6.1,0,9.2,0C41,9.3,41,8,40.2,8c-3.1,0-6.1,0-9.2,0C30.2,8,30.2,9.3,31,9.3L31,9.3z"/>
+        </g>
+      </g>
     </svg>`;
   }
 
