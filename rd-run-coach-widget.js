@@ -44,6 +44,7 @@
       { label: "Half marathon",     message: "I want to improve my half marathon time" },
       { label: "Injury prevention", message: "I want advice on injury prevention" },
       { label: "View programs",     message: "What programs does RD Run Coach offer?" },
+      { lable: "Learn about Run Squad", message: "What is run squad?"}
     ],
 
     /* AI coaching persona */
@@ -53,7 +54,8 @@ Your role:
 - Help visitors understand what programs and coaching RD Run Coach offers.
 - Give warm, encouraging, practical running advice tailored to runners 45+.
 - Address common concerns: injury prevention, returning to running, pacing for older runners, balancing training with life.
-- Encourage visitors to explore programs on the site or get in touch with Dale for personalised coaching.
+- Encourage visitors to get in touch with Dale for personalised coaching.
+- Encourage visitors to come to run squad - the first week is free.
 
 Tone: warm, experienced, and direct — like a knowledgeable friend who runs. Not clinical. Not corporate.
 Keep every response to 2–4 sentences. Be specific and practical.`,
