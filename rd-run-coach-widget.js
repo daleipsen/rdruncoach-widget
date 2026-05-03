@@ -25,6 +25,7 @@
   "use strict";
 
   /* ─── CONFIG ─────────────────────────────────────────────── */
+  proxyUrl: "https://rdrc-proxy.dale-ipsen.workers.dev",
   const CONFIG = {
     /* Colours */
     navy:       "#0B1C3D",
