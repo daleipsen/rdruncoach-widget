@@ -4,17 +4,12 @@
  *
  * EMBED (paste before </body> on every page):
  * ─────────────────────────────────────────────────────────────
- * <script
- *   src="rd-run-coach-widget.js"
- *   data-api-key="YOUR_ANTHROPIC_API_KEY">
- * </script>
+ * <script src="rd-run-coach-widget.js"></script>
  * ─────────────────────────────────────────────────────────────
  *
- * PRODUCTION NOTE:
- * For a live site, replace the direct Anthropic API call below
- * with a call to your own backend endpoint (e.g. /api/chat)
- * so your API key is never exposed in the browser.
- * A simple Node/Express or PHP proxy takes about 20 lines.
+ * API KEY: stored securely in your Cloudflare Worker — not here.
+ * Set PROXY_URL in the CONFIG block below to your Worker URL,
+ * e.g. https://rdrc-proxy.dale-ipsen.workers.dev
  *
  * CUSTOMISATION:
  * Edit the CONFIG block below to change the greeting, colours,
@@ -25,8 +20,10 @@
   "use strict";
 
   /* ─── CONFIG ─────────────────────────────────────────────── */
-  proxyUrl: "https://rdrc-proxy.dale-ipsen.workers.dev",
   const CONFIG = {
+    /* Your Cloudflare Worker URL — update this after deploying */
+    proxyUrl: "https://rdrc-proxy.dale-ipsen.workers.dev",
+
     /* Colours */
     navy:       "#0B1C3D",
     navyDark:   "#162f5e",
@@ -62,11 +59,6 @@ Tone: warm, experienced, and direct — like a knowledgeable friend who runs. No
 Keep every response to 2–4 sentences. Be specific and practical.`,
   };
   /* ─── END CONFIG ─────────────────────────────────────────── */
-
-  /* Grab API key from the script tag's data-api-key attribute */
-  const scriptTag = document.currentScript ||
-    document.querySelector("script[data-api-key]");
-  const API_KEY = scriptTag ? scriptTag.getAttribute("data-api-key") : "";
 
   /* ─── STYLES ─────────────────────────────────────────────── */
   const css = `
@@ -520,19 +512,13 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     showTyping();
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch(CONFIG.proxyUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
           max_tokens: 300,
-          system: CONFIG.systemPrompt,
           messages: history
+          /* model and system prompt are set in the Worker — not exposed here */
         })
       });
       const data = await res.json();
