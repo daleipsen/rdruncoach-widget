@@ -57,11 +57,12 @@ Your role:
 - Encourage visitors to get in touch with Dale for personalised coaching.
 - Encourage visitors to join on Tuesdays and Thursdays to run squad.
 
+
 Tone: warm, experienced, and direct — like a knowledgeable friend who runs. Not clinical. Not corporate.
 Keep every response to 2–4 sentences. Be specific and practical.`,
   };
   /* ─── END CONFIG ─────────────────────────────────────────── */
-
+ 
   /* ─── STYLES ─────────────────────────────────────────────── */
   const css = `
   #rdrc-fab-wrap {
@@ -137,7 +138,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     transition: transform 0.2s ease;
   }
   #rdrc-badge.rdrc-hide { transform: scale(0); }
-
+ 
   /* Panel */
   #rdrc-panel {
     position: absolute;
@@ -161,7 +162,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     opacity: 1;
     pointer-events: all;
   }
-
+ 
   /* Header */
   #rdrc-header {
     background: ${CONFIG.navy};
@@ -207,7 +208,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     color: rgba(255,255,255,0.5);
     font-size: 10px;
   }
-
+ 
   /* Messages */
   #rdrc-messages {
     height: 270px;
@@ -254,7 +255,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     border-radius: 10px 3px 10px 10px;
     max-width: 210px;
   }
-
+ 
   /* Chips */
   #rdrc-chips {
     display: flex;
@@ -274,7 +275,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     transition: background 0.12s ease, border-color 0.12s ease;
   }
   .rdrc-chip:hover { background: #eef3ff; border-color: ${CONFIG.blue}; }
-
+ 
   /* Typing dots */
   #rdrc-typing {
     display: flex;
@@ -291,7 +292,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
   }
   .rdrc-dot:nth-child(2) { animation-delay: 0.2s; }
   .rdrc-dot:nth-child(3) { animation-delay: 0.4s; }
-
+ 
   /* Input */
   #rdrc-input-row {
     background: #fff;
@@ -330,7 +331,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
   #rdrc-send:hover  { background: ${CONFIG.navyHover}; }
   #rdrc-send:active { transform: scale(0.93); }
   #rdrc-send:disabled { opacity: 0.5; cursor: not-allowed; }
-
+ 
   /* Powered by */
   #rdrc-footer {
     background: #fafbff;
@@ -343,7 +344,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
   }
   #rdrc-footer a { color: #aab; text-decoration: none; }
   #rdrc-footer a:hover { color: ${CONFIG.blue}; }
-
+ 
   @keyframes rdrc-fadein {
     from { opacity: 0; transform: translateY(4px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -353,7 +354,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     40%         { opacity: 1;   transform: scale(1); }
   }
   `;
-
+ 
   /* ─── RUNNER SVG (shared) ────────────────────────────────── */
   function runnerSVG(w, h, _strokeW) {
     /* Exact paths extracted from the official RD Run Coach SVG logo */
@@ -377,22 +378,22 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
       </g>
     </svg>`;
   }
-
+ 
   /* ─── BUILD DOM ──────────────────────────────────────────── */
   function buildWidget() {
     /* Inject styles */
     const style = document.createElement("style");
     style.textContent = css;
     document.head.appendChild(style);
-
+ 
     /* Wrap */
     const wrap = document.createElement("div");
     wrap.id = "rdrc-fab-wrap";
-
+ 
     /* Tooltip */
     wrap.innerHTML = `
       <div id="rdrc-tooltip">${CONFIG.tooltip}</div>
-
+ 
       <!-- Panel -->
       <div id="rdrc-panel" role="dialog" aria-label="RD Run Coach chat assistant">
         <div id="rdrc-header">
@@ -406,7 +407,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
             <span id="rdrc-online-label">Online</span>
           </div>
         </div>
-
+ 
         <div id="rdrc-messages" aria-live="polite">
           <div class="rdrc-row">
             <div class="rdrc-msg-avatar">${runnerSVG(12, 12, 2)}</div>
@@ -418,7 +419,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
             ).join("")}
           </div>
         </div>
-
+ 
         <div id="rdrc-input-row">
           <input id="rdrc-input" type="text" placeholder="${CONFIG.placeholder}" autocomplete="off"/>
           <button id="rdrc-send" aria-label="Send">
@@ -428,12 +429,12 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
             </svg>
           </button>
         </div>
-
+ 
         <div id="rdrc-footer">
           Powered by <a href="https://rdruncoach.com.au" target="_blank">RD Run Coach</a>
         </div>
       </div>
-
+ 
       <!-- FAB -->
       <button id="rdrc-fab" aria-label="Open chat assistant" aria-expanded="false">
         <div id="rdrc-badge">1</div>
@@ -445,47 +446,47 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
         </div>
       </button>
     `;
-
+ 
     document.body.appendChild(wrap);
   }
-
+ 
   /* ─── STATE & EVENTS ─────────────────────────────────────── */
   let isOpen = false;
   let history = [];
-
+ 
   function toggle() {
     isOpen = !isOpen;
     const panel = document.getElementById("rdrc-panel");
     const fab   = document.getElementById("rdrc-fab");
     const badge = document.getElementById("rdrc-badge");
     const tip   = document.getElementById("rdrc-tooltip");
-
+ 
     panel.classList.toggle("rdrc-open", isOpen);
     fab.classList.toggle("rdrc-open", isOpen);
     fab.setAttribute("aria-expanded", isOpen);
     badge.classList.add("rdrc-hide");
     tip.style.opacity = "0";
-
+ 
     if (isOpen) {
       setTimeout(() => document.getElementById("rdrc-input").focus(), 250);
     }
   }
-
+ 
   function addBubble(text, isUser) {
     const msgs   = document.getElementById("rdrc-messages");
     const chips  = document.getElementById("rdrc-chips");
     if (chips) chips.remove();
-
+ 
     const row    = document.createElement("div");
     row.className = "rdrc-row" + (isUser ? " rdrc-user" : "");
-
+ 
     if (!isUser) {
       const av = document.createElement("div");
       av.className = "rdrc-msg-avatar";
       av.innerHTML = runnerSVG(12, 12, 2);
       row.appendChild(av);
     }
-
+ 
     const bubble = document.createElement("div");
     bubble.className = "rdrc-bubble " + (isUser ? "rdrc-user" : "rdrc-bot");
     bubble.textContent = text;
@@ -493,7 +494,7 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     msgs.appendChild(row);
     msgs.scrollTop = msgs.scrollHeight;
   }
-
+ 
   function showTyping() {
     const msgs = document.getElementById("rdrc-messages");
     const row  = document.createElement("div");
@@ -509,23 +510,23 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
     msgs.appendChild(row);
     msgs.scrollTop = msgs.scrollHeight;
   }
-
+ 
   function removeTyping() {
     const t = document.getElementById("rdrc-typing-row");
     if (t) t.remove();
   }
-
+ 
   async function send(text) {
     if (!text.trim()) return;
     addBubble(text, true);
     history.push({ role: "user", content: text });
-
+ 
     const btn = document.getElementById("rdrc-send");
     const inp = document.getElementById("rdrc-input");
     btn.disabled = true;
     inp.value = "";
     showTyping();
-
+ 
     try {
       const res = await fetch(CONFIG.proxyUrl, {
         method: "POST",
@@ -546,40 +547,40 @@ Keep every response to 2–4 sentences. Be specific and practical.`,
       removeTyping();
       addBubble("Sorry, I had a connection issue. Please try again.", false);
     }
-
+ 
     btn.disabled = false;
   }
-
+ 
   /* ─── INIT ───────────────────────────────────────────────── */
   function init() {
     buildWidget();
-
+ 
     /* Tooltip fade-in after 1.5 s */
     setTimeout(() => {
       const tip = document.getElementById("rdrc-tooltip");
       if (tip) tip.style.opacity = "1";
     }, 1500);
-
+ 
     /* FAB toggle */
     document.getElementById("rdrc-fab").addEventListener("click", toggle);
-
+ 
     /* Send button */
     document.getElementById("rdrc-send").addEventListener("click", () => {
       send(document.getElementById("rdrc-input").value);
     });
-
+ 
     /* Enter key */
     document.getElementById("rdrc-input").addEventListener("keydown", e => {
       if (e.key === "Enter") send(e.target.value);
     });
-
+ 
     /* Chips */
     document.getElementById("rdrc-chips").addEventListener("click", e => {
       const chip = e.target.closest(".rdrc-chip");
       if (chip) send(chip.dataset.msg);
     });
   }
-
+ 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
